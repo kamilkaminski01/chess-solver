@@ -3,7 +3,7 @@ from typing import Dict
 from flask import Flask, Response, jsonify, make_response
 from flask_restful import Api
 
-from consts import figures
+from figures import figures
 from utils import is_valid_field
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ def list_moves(chess_figure: str, current_field: str) -> Response:
         "availableMoves": [],
         "error": None,
         "figure": chess_figure,
-        "currentField": current_field,
+        "currentField": current_field.upper(),
     }
 
     figure_class = figures.get(chess_figure.lower())
@@ -50,8 +50,8 @@ def validate_move(chess_figure: str, current_field: str, dest_field: str) -> Res
         "move": "",
         "figure": chess_figure,
         "error": None,
-        "currentField": current_field,
-        "destField": dest_field,
+        "currentField": current_field.upper(),
+        "destField": dest_field.upper(),
     }
 
     figure_class = figures.get(chess_figure.lower())
@@ -75,6 +75,7 @@ def validate_move(chess_figure: str, current_field: str, dest_field: str) -> Res
         response["move"] = "valid"
         status_code = 200
     else:
+        response["move"] = "invalid"
         response["error"] = "Current move is not permitted."
         status_code = 409
     return make_response(jsonify(response), status_code)

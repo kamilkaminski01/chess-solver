@@ -1,10 +1,2 @@
-from figures import Bishop, King, Knight, Pawn, Queen, Rook
-
-figures = {
-    "pawn": Pawn,
-    "knight": Knight,
-    "bishop": Bishop,
-    "rook": Rook,
-    "queen": Queen,
-    "king": King,
-}
+valid_columns = ["A", "B", "C", "D", "E", "F", "G", "H"]
+valid_rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
