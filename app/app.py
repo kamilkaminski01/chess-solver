@@ -1,13 +1,12 @@
 from typing import Dict
 
 from flask import Flask, Response, jsonify, make_response
-from flask_restful import Api
+from exceptions import APIExceptions
 
 from figures import figures
 from utils import is_valid_field
 
 app = Flask(__name__)
-api = Api(app)
 
 
 @app.route("/")
@@ -27,11 +26,11 @@ def list_moves(chess_figure: str, current_field: str) -> Response:
     figure_class = figures.get(chess_figure.lower())
 
     if not figure_class:
-        response["error"] = "Figure does not exist."
+        response["error"] = APIExceptions.FigureNotFound
         return make_response(jsonify(response), 404)
 
     if not is_valid_field(current_field):
-        response["error"] = "Current field does not exist."
+        response["error"] = APIExceptions.FieldNotFound
         return make_response(jsonify(response), 409)
 
     figure_instance = figure_class(current_field)
@@ -57,15 +56,15 @@ def validate_move(chess_figure: str, current_field: str, dest_field: str) -> Res
     figure_class = figures.get(chess_figure.lower())
 
     if not figure_class:
-        response["error"] = "Figure does not exist."
+        response["error"] = APIExceptions.FigureNotFound
         return make_response(jsonify(response), 404)
 
     if not is_valid_field(current_field):
-        response["error"] = "Current field does not exist."
+        response["error"] = APIExceptions.FieldNotFound
         return make_response(jsonify(response), 409)
 
     if not is_valid_field(dest_field):
-        response["error"] = "Destination field does not exist."
+        response["error"] = APIExceptions.DestinationFieldNotFound
         return make_response(jsonify(response), 409)
 
     figure_instance = figure_class(current_field)
@@ -76,7 +75,7 @@ def validate_move(chess_figure: str, current_field: str, dest_field: str) -> Res
         status_code = 200
     else:
         response["move"] = "invalid"
-        response["error"] = "Current move is not permitted."
+        response["error"] = APIExceptions.InvalidMove
         status_code = 409
     return make_response(jsonify(response), status_code)
 

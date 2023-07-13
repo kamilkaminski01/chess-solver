@@ -1,7 +1,6 @@
 black==23.7.0
 flake8==6.0.0
 Flask==2.3.2
-Flask-RESTful==0.3.10
 isort==5.10.1
 pytest-flask==1.2.0
 mypy==1.4.1
