@@ -41,8 +41,7 @@ For example:
 ```json
 {
   "availableMoves": [
-    "D5",
-    "F5"
+    "E5"
   ],
   "currentField": "E4",
   "error": null,
@@ -50,11 +49,11 @@ For example:
 }
 ```
 
-`curl http://localhost:5000/api/v1/pawn/e4/d5` will return a response:
+`curl http://localhost:5000/api/v1/pawn/e4/e5` will return a response:
 ```json
 {
   "currentField": "E4",
-  "destField": "D5",
+  "destField": "E5",
   "error": null,
   "figure": "pawn",
   "move": "valid"
@@ -115,3 +114,11 @@ completions, prevent from type errors and extend code documentation.
 All features are verified with automated unit tests, including
 the expected "happy paths" as well as edge cases that might cause issues
 or errors.
+
+In order to run unit tests make sure that the `pytest` library is installed, next run:
+
+```bash
+cd chess-solver/
+cd app/
+python -m pytest
+```
