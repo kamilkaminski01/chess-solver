@@ -1,4 +1,4 @@
-.PHONY: build start clear stop lint
+.PHONY: build start run clear stop lint pytest
 
 build:
 	docker build -t chess-solver .
@@ -18,3 +18,6 @@ stop:
 
 lint:
 	cd app/ && black . && isort . && mypy . && flake8 .
+
+pytest:
+	cd app/ && python -m pytest
