@@ -1,8 +1,8 @@
 from typing import Dict
 
 from flask import Flask, Response, jsonify, make_response
-from exceptions import APIExceptions
 
+from exceptions import APIExceptions
 from figures import figures
 from utils import is_valid_field
 

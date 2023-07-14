@@ -28,21 +28,19 @@ class Figure:
 
 
 class Pawn(Figure):
-    def list_available_moves(self) -> List[str]:
+    def list_available_moves(self):
         super().list_available_moves()
 
-        # For the A column
-        if self.current_column == valid_columns[0] and self.current_row != 8:
-            self.available_moves.append(f"{self.next_column}{self.next_row}")
+        # Forward move
+        next_row = self.current_row + 1
+        if 1 <= next_row <= 8:
+            self.available_moves.append(f"{self.current_column}{next_row}")
 
-        # For the H column
-        if self.current_column == valid_columns[7] and self.current_row != 8:
-            self.available_moves.append(f"{self.previous_column}{self.next_row}")
-
-        # For the rest of columns
-        if self.column_index not in [0, 7] and self.next_row != 9:
-            self.available_moves.append(f"{self.previous_column}{self.next_row}")
-            self.available_moves.append(f"{self.next_column}{self.next_row}")
+        # First double move from the initial position
+        if self.current_row == 2:
+            next_row = self.current_row + 2
+            if 1 <= next_row <= 8:
+                self.available_moves.append(f"{self.current_column}{next_row}")
 
         return self.available_moves
 
